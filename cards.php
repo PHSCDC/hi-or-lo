@@ -11,7 +11,8 @@
 	
 		if ($correct) {
 			if(!isset($_COOKIE['hi-lo-wins'])) {
-				$win = 1; $lose = 0;
+				$win = 1;
+				$lose = 0;
 				setcookie("hi-lo-wins", 1, time() + 31622400); // set the score cookies;
 				setcookie("hi-lo-losses", 0, time() + 31622400); // they expire after 1 leap year.
 			} else {
