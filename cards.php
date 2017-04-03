@@ -1,11 +1,11 @@
 <?
 	if (isset($_POST['guess'])) {
-		$guess=intval($_POST['guess']);
+		$guess = intval($_POST['guess']);
 		$suit = rand(0,3);
 		$value = rand(1,13);
 		if ($value > 11) { $value++; } // unicode includes a nonstandard "knight" card that we must skip over
 		$value = $value - 7;
-		$correct = (($v > 0) - ($v < 0)) == (($g > 0) - ($g < 0)); // check that signs are the same
+		$correct = (($value > 0) - ($value < 0)) == (($guess > 0) - ($guess < 0)); // check that signs are the same
 	
 		if ($correct) {
 			if(!isset($_COOKIE['hi-lo-wins'])) {
