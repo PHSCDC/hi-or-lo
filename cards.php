@@ -1,4 +1,6 @@
-<?
+<? // we must do calculations before any html if we are to set any cookies.
+   // this is because cookies are sent with the header,
+   // and anything in the html tag is, by definition, NOT in the header.
 	if (isset($_POST['guess'])) {
 		$guess = intval($_POST['guess']);
 		$suit = rand(0,3);
@@ -10,8 +12,8 @@
 		if ($correct) {
 			if(!isset($_COOKIE['hi-lo-wins'])) {
 				$win = 1; $lose = 0;
-				setcookie("hi-lo-wins", 1, time() + 31622400);
-				setcookie("hi-lo-losses", 0, time() + 31622400);
+				setcookie("hi-lo-wins", 1, time() + 31622400); // set the score cookies;
+				setcookie("hi-lo-losses", 0, time() + 31622400); // they expire after 1 leap year.
 			} else {
 				$win = $_COOKIE['hi-lo-wins'] + 1;
 				$lose = $_COOKIE['hi-lo-losses'];
