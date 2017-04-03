@@ -51,6 +51,7 @@
 			</form>
 		<? else:
 			echo "<h1>&#" . ($suit * 16 + $value + 127143) . ';</h1>'; // display card
+			echo '<p>[' . array(1,2,3,4,5,6,7,8,9,10,'J','','Q','K')[$value+6] . ']</p>'; // display ascii representation of card for older browsers
 			echo '<p>' . ($correct ? '' : 'in') . 'correct!</p>';
 			echo '<p>total score: ' . $win * 100 / ($win + $lose) . '% (' . $win . '/' . ($lose + $win) . ')</p>';
 		?>
