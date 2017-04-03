@@ -1,29 +1,32 @@
 <?
-	if (isset($_POST['g'])) {
-		$g=intval($_POST['g']);
-		$s=rand(0,3);
-		$v=rand(1,13);
-		$v=($v>11)?$v+1:$v;
-		$v=$v-7;
-		$c=(($v>0)-($v<0))==(($g>0)-($g<0));
+	if (isset($_POST['guess'])) {
+		$guess=intval($_POST['guess']);
+		$suit = rand(0,3);
+		$value = rand(1,13);
+		if ($value > 11) { $value++; } // unicode includes a nonstandard "knight" card that we must skip over
+		$value = $value - 7;
+		$correct = (($v > 0) - ($v < 0)) == (($g > 0) - ($g < 0)); // check that signs are the same
 	
-		if ($c) {
+		if ($correct) {
 			if(!isset($_COOKIE['hi-lo-wins'])) {
-				$w = 1; $l = 0;
+				$win = 1; $lose = 0;
 				setcookie("hi-lo-wins", 1, time() + 31622400);
 				setcookie("hi-lo-losses", 0, time() + 31622400);
 			} else {
-				$w = $_COOKIE['hi-lo-wins'] + 1; $l = $_COOKIE['hi-lo-losses'];
-				setcookie("hi-lo-wins", $w, time() + 31622400);
+				$win = $_COOKIE['hi-lo-wins'] + 1;
+				$lose = $_COOKIE['hi-lo-losses'];
+				setcookie("hi-lo-wins", $win, time() + 31622400);
 			}
 		} else {
 			if(!isset($_COOKIE['hi-lo-losses'])) {
-				$w = 0; $l = 1;
+				$win = 0;
+				$lose = 1;
 				setcookie("hi-lo-losses", 1, time() + 31622400);
 				setcookie("hi-lo-wins", 0, time() + 31622400);
 			} else {
-				$w = $_COOKIE['hi-lo-wins']; $l = $_COOKIE['hi-lo-losses'] + 1;
-				setcookie("hi-lo-losses", $l, time() + 31622400);
+				$win = $_COOKIE['hi-lo-wins'];
+				$lose = $_COOKIE['hi-lo-losses'] + 1;
+				setcookie("hi-lo-losses", $lose, time() + 31622400);
 			}
 		}
 	}
@@ -38,16 +41,18 @@
 		</style>
 	</head>
 	<body>
-		<? if (!isset($_POST['g'])): ?>
+		<? if (!isset($_POST['guess'])): ?>
 			<h1>🂠</h1>
 			<p>is my card greater or less than 7? (aces are low)</p>
 			<form action="cards.php" method="post">
-				<button type="submit" name="g" value="-1">less</button>
-				<button type="submit" name="g" value="0">equal</button>
-				<button type="submit" name="g" value="1">greater</button>
+				<button type="submit" name="guess" value="-1">less</button>
+				<button type="submit" name="guess" value="0">equal</button>
+				<button type="submit" name="guess" value="1">greater</button>
 			</form>
 		<? else:
-			echo "<h1>&#".($s*16+$v+277*459).';</h1><p>'.($c?'':'in').'correct!</p><p>total score: '.$w*100/($w+$l).'% ('.$w.'/'.($l+$w).')</p>';
+			echo "<h1>&#" . ($suit * 16 + $value + 127143) . ';</h1>'; // display card
+			echo '<p>' . ($correct ? '' : 'in') . 'correct!</p>';
+			echo '<p>total score: ' . $win * 100 / ($win + $lose) . '% (' . $win . '/' . ($lose + $win) . ')</p>';
 		?>
 		<a href="cards.php"><p>try again</p></a>
 		<? endif; ?>
