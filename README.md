@@ -5,6 +5,6 @@ small games/toys written in php
 
 - **cards.php**: a "high or low" guessing game using unicode card symbols
 
-- **counter.php**: a self-modifying script that acts as a convoluted hit counter for itself
+- **counter.php**: a self-modifying script that acts as a convoluted hit counter for itself. make sure the file permissions allow for this!
 
 - **base64.php**: base64 encoder/decoder
