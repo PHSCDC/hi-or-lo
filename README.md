@@ -1,5 +1,5 @@
 # php-doots
-small games/toys written in php
+small games/toys/tools written in php
 
 [http://phscyberdefense.org/php-doots](http://phscyberdefense.org/php-doots)
 
